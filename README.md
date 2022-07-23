@@ -96,7 +96,7 @@ After running the `build` command, a  `/dist` folder will be generated with the 
 
 <br>
 
-## Technologies
+## Technologies Used
 
 This application was built using the following technologies:
 
