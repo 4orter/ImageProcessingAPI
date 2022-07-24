@@ -7,13 +7,13 @@ const request = supertest(app);
 
 // SECTION: - API Endpoint Tests
 
-describe(`API Endpoint Tests`, () => {
+describe(`API Endpoint Tests`, (): void => {
 
     // ANCHOR: - Response Status Tests
 
-    describe('Response Status Tests', () => {
+    describe('Response Status Tests', (): void => {
 
-        it(`'/api' Endpoint Should Return 200 Response Status`, async () => {
+        it(`'/api' Endpoint Should Return 200 Response Status`, async (): Promise<void> => {
             const response = await request.get('/api');
             expect(response.status).toEqual(200);
         });
@@ -22,9 +22,9 @@ describe(`API Endpoint Tests`, () => {
 
     // ANCHOR: - Response Header Tests
 
-    describe('Response Header Tests', () => {
+    describe('Response Header Tests', (): void => {
 
-        it(`'/api' Endpoint Should Return Content Type of HTML`, async () => {
+        it(`'/api' Endpoint Should Return Content Type of HTML`, async (): Promise<void> => {
             const response = await request.get('/api');
             expect(response.headers['content-type']).toMatch(/^text\/html/);
         });

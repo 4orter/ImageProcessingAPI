@@ -7,7 +7,7 @@ const router = express.Router();
 
 // ANCHOR: - Routes
 
-router.get('/', (req, res) => {
+router.get('/', (req: express.Request, res: express.Response): void => {
     res.render('api.liquid', { endpoint: '/api' });
 });
 

@@ -20,17 +20,18 @@ app.use('/api', routes);
 
 // ANCHOR: - Routes
 
-app.get('/', (req, res) => {
+app.get('/', (req: express.Request, res: express.Response): void => {
     res.render('index.liquid', { appName: 'image-processing-api' });
 });
 
-app.use((req, res, next) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((req: express.Request, res: express.Response, next: express.NextFunction): void => {
     res.status(404).render('404.liquid');
 });
 
 // Start the server...
 
-app.listen(port, () => {
+app.listen(port, (): void => {
     console.log(`Server started at localhost:${port}`);
 });
 

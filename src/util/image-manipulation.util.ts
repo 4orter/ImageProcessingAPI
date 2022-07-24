@@ -1,5 +1,6 @@
 import sharp from 'sharp';
 import fs from 'fs';
+import { NullableError, NullableString } from './types.util';
 
 // ANCHOR: - Types
 
@@ -24,7 +25,7 @@ function resizeImage(
     imageName: string,
     width: number,
     height: number,
-    callback: (err: Error | null, outputPath: string | null) => void) {
+    callback: (err: NullableError, outputPath: NullableString) => void): void {
 
     // Check if thumbnail folder exists
     if (!fs.existsSync('./public/assets/images/thumb')) {
@@ -34,7 +35,8 @@ function resizeImage(
     // Generate new image
     sharp(inputPath(imageName))
         .resize(width, height)
-        .toFile(outputPath(imageName, { width, height }), (err, _) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        .toFile(outputPath(imageName, { width, height }), (err: Error, info: sharp.OutputInfo): void => {
             if (err !== null) {
                 callback(err, null);
             } else {

@@ -2,6 +2,7 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import { outputPath, resizeImage } from '../../util/image-manipulation.util';
+import { NullableError, NullableString } from '../../util/types.util';
 
 // ANCHOR: - Top-Level Constants
 
@@ -9,7 +10,7 @@ const images = express.Router();
 
 // ANCHOR: - Types
 
-type Query = {
+type ImageQuery = {
     imageName?: string;
     width?: string;
     height?: string;
@@ -17,18 +18,18 @@ type Query = {
 
 // ANCHOR: - Helper Functions
 
-const renderParamError = (message: string, res: express.Response) => {
+const renderParamError = (message: string, res: express.Response): void => {
     res.status(400);
     res.render('param-error.liquid', { message });
 };
 
-const checkFileExists = (filePath: string) => {
+const checkFileExists = (filePath: string): boolean => {
     return fs.existsSync(filePath);
 };
 
 // ANCHOR: - Routes
 
-images.get('/', (req, res) => {
+images.get('/', (req: express.Request, res: express.Response): void => {
     if (Object.entries(req.query).length === 0) {
         // Render generic API template
         res.render('api.liquid', {
@@ -36,7 +37,7 @@ images.get('/', (req, res) => {
         });
     } else {
         // Type cast query object
-        const query = (req.query as Query);
+        const query = (req.query as ImageQuery);
 
         // Check for required URL parameters
         if (!query.imageName) {
@@ -68,7 +69,7 @@ images.get('/', (req, res) => {
             res.sendFile(path.resolve(futureOutputPath));
         } else {
             // Attempt to resize image
-            resizeImage(query.imageName, width, height, (err, outputPath) => {
+            resizeImage(imageName, width, height, (err: NullableError, outputPath: NullableString): void => {
                 if (err) {
                     renderParamError(`<code>${imageName}</code> image does not exist.`, res);
                 } else {
