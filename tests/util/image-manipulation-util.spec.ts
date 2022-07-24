@@ -24,19 +24,21 @@ describe('Image Processing Utility Tests', (): void => {
 
     describe('Tests for resizeImage() Function', (): void => {
 
-        it('Resizing Existing Image Returns Correct Output Path', (): void => {
+        it('Resizing Existing Image Returns Correct Output Path', (done: DoneFn): void => {
             removeDirectory(thumbnailDirPath);
             resizeImage('santamonica', 200, 300, (err: NullableError, outputPath: NullableString): void => {
                 expect(err).toBeNull();
                 expect(outputPath).toBe(`${thumbnailDirPath}/santamonica_w200h300.jpg`);
+                done();
             });
         });
 
-        it('Resizing Non-Existing Image Returns Error', (): void => {
+        it('Resizing Non-Existing Image Returns Error', (done: DoneFn): void => {
             removeDirectory(thumbnailDirPath);
             resizeImage('test', 200, 300, (err: NullableError, outputPath: NullableString): void => {
                 expect(outputPath).toBeNull();
                 expect(err).toBeTruthy();
+                done();
             })
         });
 

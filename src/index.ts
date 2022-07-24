@@ -24,7 +24,6 @@ app.get('/', (req: express.Request, res: express.Response): void => {
     res.render('index.liquid', { appName: 'image-processing-api' });
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((req: express.Request, res: express.Response, next: express.NextFunction): void => {
     res.status(404).render('404.liquid');
 });
