@@ -105,3 +105,8 @@ dist
 
 # Mac
 .DS_Store
+
+# Editors
+.vscode
+.idea
+.nova

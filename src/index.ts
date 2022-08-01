@@ -20,11 +20,12 @@ app.use('/api', routes);
 
 // ANCHOR: - Routes
 
-app.get('/', (req: express.Request, res: express.Response): void => {
+app.get('/', (_: express.Request, res: express.Response): void => {
     res.render('index.liquid', { appName: 'image-processing-api' });
 });
 
-app.use((req: express.Request, res: express.Response, next: express.NextFunction): void => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((_: express.Request, res: express.Response, next: express.NextFunction): void => {
     res.status(404).render('404.liquid');
 });
 
